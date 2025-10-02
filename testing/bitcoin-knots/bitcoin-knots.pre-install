@@ -1,0 +1,5 @@
+#!/bin/sh
+
+adduser -S -D bitcoin
+addgroup -S bitcoin
+

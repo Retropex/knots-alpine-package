@@ -1,0 +1,16 @@
+#!/sbin/openrc-run
+
+name="bitcoind"
+description="Bitcoin network daemon"
+
+: "${command_user:="bitcoin"}"
+
+command="/usr/bin/bitcoind"
+: "${command_args:="-server=1 -txindex=1"}"
+command_background="yes"
+pidfile="/run/bitcoind.pid"
+
+depend() {
+	need net
+	after firewall
+}

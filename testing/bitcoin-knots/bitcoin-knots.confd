@@ -1,0 +1,10 @@
+# Configuration for /etc/init.d/bitcoin-knots
+
+# User (and group) to run bitcoin-knots as.
+command_user="bitcoin:bitcoin"
+
+# Additional arguments for bitcoin-knots daemon.
+command_args="-server=1 -txindex=1"
+
+# Comment out to disable process supervisor.
+supervisor=supervise-daemon

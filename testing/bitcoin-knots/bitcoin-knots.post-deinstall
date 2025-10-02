@@ -1,0 +1,5 @@
+#!/bin/sh
+
+delgroup bitcoin
+rm -rf /home/bitcoin/
+deluser --remove-home bitcoin

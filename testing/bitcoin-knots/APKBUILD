@@ -1,0 +1,53 @@
+# Contributor: Léo Haf <leo@haf.ovh>
+# Maintainer: Léo Haf <leo@haf.ovh>
+pkgname=bitcoin-knots
+pkgver=29.1
+_pkgverlong=29.1.knots20250903
+pkgrel=0
+pkgdesc="enhanced Bitcoin node/wallet software"
+url="https://bitcoinknots.org"
+arch="x86_64 aarch64"
+license="MIT"
+depends="gcc g++ python3 sqlite-dev zeromq-dev boost-dev libevent-dev db-dev miniupnpc-dev"
+makedepends="cmake gcc python3 sqlite-dev zeromq-dev boost-dev libevent-dev db-dev miniupnpc-dev"
+checkdepends="cmake gcc python3 sqlite-dev zeromq-dev boost-dev libevent-dev db-dev miniupnpc-dev"
+install="$pkgname.pre-install $pkgname.post-deinstall"
+subpackages="$pkgname-doc"
+source="
+	$pkgname-$_pkgverlong.tar.gz::https://bitcoinknots.org/files/29.x/$_pkgverlong/bitcoin-$_pkgverlong.tar.gz
+	bitcoin-knots.initd
+	bitcoin-knots.confd
+	bitcoin-knots.pre-install
+	bitcoin-knots.post-deinstall
+	"
+builddir="$srcdir/bitcoin-$_pkgverlong"
+
+build() {
+	default_prepare
+	cmake -B build -G "Unix Makefiles" -DWITH_ZMQ=ON -DWITH_BDB=ON -DWITH_MINIUPNPC=ON -DWARN_INCOMPATIBLE_BDB=OFF
+	cmake --build build -j "$(nproc)"
+	:
+}
+
+check() {
+	ctest --test-dir build -j "$(nproc)"
+	:
+}
+
+package() {
+	cmake --install build --prefix "$pkgdir"/usr
+	:
+
+	install -m755 -D "$srcdir"/$pkgname.initd \
+		"$pkgdir"/etc/init.d/$pkgname
+	install -m644 -D "$srcdir"/$pkgname.confd \
+		"$pkgdir"/etc/conf.d/$pkgname
+}
+
+sha512sums="
+3a99155b06cdb84edf760c2a47a76c632bea10b5cefb44269511f06d58c84d8b71edbb81975db9c8389b346dc4c753a9206b1df277c66f7ed449b458cd0df401  bitcoin-knots-29.1.knots20250903.tar.gz
+d39c9dc298b7965f46bf4d185e9245c7b76435f349ce1a7329aec758cd8a01ae81f8cd84894b1815264503bb23a175b5b233573ef7f481795a61584bf054f833  bitcoin-knots.initd
+df2e3bf8bf6528584656369bf7f7725884f3ae84a68dc33024c481e72404f0d8910769afbbe01edc0f634f3af6ce0a8492e372ba91207ec53103a51e8af9e51d  bitcoin-knots.confd
+4aa9720524a6d13fb9518e3a1735e2a6d904e1010517d7d2acd98c3a231c8e1a61b0b681f1568e4a4a28727f1cec1790fbbcf2a8fe11c859233acdf48ab94ae4  bitcoin-knots.pre-install
+9f3fc7136487e0db14bd6d5364427da0f260f3939e8e116ff8df0153e8e9bdbed09ef48e75800882ddd4fed26bec25c7764c8e6ae0fbb79eb6bdf71815d458ed  bitcoin-knots.post-deinstall
+"
