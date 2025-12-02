@@ -1,0 +1,9 @@
+#!/bin/sh
+
+# Use cookie instead of rpcuser/rpcpassword
+if [ -f /etc/datum/config.json ]; then
+    jq 'del(.bitcoind.rpcuser)' /etc/datum/config.json > /tmp/config.json.tmp && mv /tmp/config.json.tmp /etc/datum/config.json
+    jq 'del(.bitcoind.rpcpassword)' /etc/datum/config.json > /tmp/config.json.tmp && mv /tmp/config.json.tmp /etc/datum/config.json
+    jq '.bitcoind += { "rpccookiefile": "/home/bitcoin/.bitcoin/.cookie" }' /etc/datum/config.json > /tmp/config.json.tmp && mv /tmp/config.json.tmp /etc/datum/config.json
+    printf "\e[33mPlease don't forget to enter your bitcoin address in the config file located at /etc/datum/config.json\e[0m\n"
+fi

@@ -1,0 +1,10 @@
+#!/bin/sh
+
+# Create bitcoin user and group if they don't exist
+if ! id -u bitcoin >/dev/null 2>&1; then
+    adduser -S -D bitcoin
+fi
+
+if ! getent group bitcoin >/dev/null 2>&1; then
+    addgroup -S bitcoin
+fi

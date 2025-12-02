@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# Remove configuration directory
+rm -rf /etc/datum/

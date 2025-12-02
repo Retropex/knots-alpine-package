@@ -1,0 +1,17 @@
+#!/sbin/openrc-run
+
+name="datum-gateway"
+description="datum gateway init file"
+
+: "${command_user:="bitcoin"}"
+
+command="/usr/bin/datum_gateway"
+: "${command_args:="-c /etc/datum/config.json"}"
+command_background="yes"
+pidfile="/run/datum-gateway.pid"
+
+depend() {
+	need net
+	need bitcoin-knots
+	after firewall
+}

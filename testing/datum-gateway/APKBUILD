@@ -1,0 +1,42 @@
+# Contributor: Léo Haf <leo@haf.ovh>
+# Maintainer: Léo Haf <leo@haf.ovh>
+pkgname=datum-gateway
+pkgver=0.4.1
+pkgrel=0
+pkgdesc="Decentralized Alternative Templates for Universal Mining"
+url="https://ocean.xyz"
+arch="x86_64 aarch64"
+license="MIT"
+depends="curl-dev jansson-dev libsodium-dev libmicrohttpd-dev psmisc jq bitcoin-knots"
+makedepends="build-base cmake pkgconf argp-standalone curl-dev jansson-dev libsodium-dev libmicrohttpd-dev psmisc"
+options="!check"
+pkgusers="bitcoin"
+pkggroups="bitcoin"
+install="$pkgname.pre-install $pkgname.post-install $pkgname.post-deinstall"
+source="
+	datum_gateway_v0.4.1.tar.gz::https://github.com/OCEAN-xyz/datum_gateway/archive/refs/tags/v0.4.1beta.tar.gz
+	datum-gateway.initd
+	datum-gateway.confd
+	"
+builddir="$srcdir/datum_gateway-0.4.1beta"
+build() {
+	cmake -G "Unix Makefiles" .
+	make -j "$(nproc)"
+}
+
+package() {
+	install -m 555 -D "$builddir"/datum_gateway \
+		"$pkgdir"/usr/bin/datum_gateway
+	install -m600 -o bitcoin -g bitcoin -D "$builddir"/doc/example_datum_gateway_config.json \
+		"$pkgdir"/etc/datum/config.json
+	install -m755 -D "$srcdir"/$pkgname.initd \
+		"$pkgdir"/etc/init.d/$pkgname
+	install -m644 -D "$srcdir"/$pkgname.confd \
+		"$pkgdir"/etc/conf.d/$pkgname
+}
+
+sha512sums="
+895bd7aa9ad2a464dff93e39b00b622c427e5cfd337f785d54ab43ecfb229144cd69892b965e2003856089b19c554ee96db988b528549d6381a3d83fb4e56054  datum_gateway_v0.4.1.tar.gz
+22bb09171ff9b17929628704d8dad8dfd1fa45ae2c5b3db49e48bddfd416640ea53df6b1852ffa32cab94a3595b54478ec13b86fb38d1a0ab5dc25c555535148  datum-gateway.initd
+7c63ef02db5e1460ebec9d05616b1befc8b62ddd5865c20704d42f89dd2fb522192b686bbdf211d9e37d702fe1e52d3f803277eaba84868da47d9f160cf27612  datum-gateway.confd
+"

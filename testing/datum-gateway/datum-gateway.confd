@@ -1,0 +1,10 @@
+# Configuration for /etc/init.d/<SERVICE>
+
+# User (and group) to run <SERVICE> as.
+command_user="bitcoin:bitcoin"
+
+# Additional arguments for <SERVICE> daemon.
+command_args=-c /etc/datum/config.json
+
+# Comment out to disable process supervisor.
+supervisor=supervise-daemon
