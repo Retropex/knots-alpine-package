@@ -1,5 +1,6 @@
 #!/bin/sh
 
-adduser -S -D bitcoin
-addgroup -S bitcoin
-
+if ! getent passwd bitcoin >/dev/null; then
+	adduser -S -D bitcoin
+	addgroup -S bitcoin
+fi

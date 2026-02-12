@@ -1,5 +1,7 @@
 #!/bin/sh
 
-delgroup bitcoin
-rm -rf /home/bitcoin/
-deluser --remove-home bitcoin
+if getent passwd bitcoin >/dev/null; then
+	delgroup bitcoin
+	rm -rf /home/bitcoin/
+	deluser --remove-home bitcoin
+fi

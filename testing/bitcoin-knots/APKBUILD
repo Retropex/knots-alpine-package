@@ -1,8 +1,8 @@
 # Contributor: Léo Haf <leo@haf.ovh>
 # Maintainer: Léo Haf <leo@haf.ovh>
 pkgname=bitcoin-knots
-pkgver=29.2
-_pkgverlong=29.2.knots20251110
+pkgver=29.3
+_pkgverlong=29.3.knots20260210
 pkgrel=0
 pkgdesc="enhanced Bitcoin node/wallet software"
 url="https://bitcoinknots.org"
@@ -45,9 +45,9 @@ package() {
 }
 
 sha512sums="
-e28b4757d7390ba9aad267279b72d505d8a26debe81ebf0183e48841b19d88b54e45e1daf2b59733de2e6787c3d641ee85bd40fc58629f204bc3797373af45be  bitcoin-knots-29.2.knots20251110.tar.gz
+894935aa498ee15957bcbe8991022b313825894b0b10730657f90660877242bbc8a71706f398f1e8f78ff4490bc80b8153055dd1e313ddc96570e91875940982  bitcoin-knots-29.3.knots20260210.tar.gz
 d39c9dc298b7965f46bf4d185e9245c7b76435f349ce1a7329aec758cd8a01ae81f8cd84894b1815264503bb23a175b5b233573ef7f481795a61584bf054f833  bitcoin-knots.initd
 df2e3bf8bf6528584656369bf7f7725884f3ae84a68dc33024c481e72404f0d8910769afbbe01edc0f634f3af6ce0a8492e372ba91207ec53103a51e8af9e51d  bitcoin-knots.confd
-4aa9720524a6d13fb9518e3a1735e2a6d904e1010517d7d2acd98c3a231c8e1a61b0b681f1568e4a4a28727f1cec1790fbbcf2a8fe11c859233acdf48ab94ae4  bitcoin-knots.pre-install
-9f3fc7136487e0db14bd6d5364427da0f260f3939e8e116ff8df0153e8e9bdbed09ef48e75800882ddd4fed26bec25c7764c8e6ae0fbb79eb6bdf71815d458ed  bitcoin-knots.post-deinstall
+1c32ec202b204dc168f68536559095d8d0f6351a9ac26bb6a1126aeb00c056f0014744b44de1d6cefd9888bed4f95e3f049cd9961a84ee48703e92fcf904a9f7  bitcoin-knots.pre-install
+3e696ce115710d472b6bc5bfb35aaddacad801dfb714265d90893db5b4e7a7a3b19327b6e8a2f647314c3fb5738e207dcd3d4a5d6526172ca8b038c7f98c9e09  bitcoin-knots.post-deinstall
 "
